@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question For You ❤️</title>
+    <style>
+        /* LUXURY WINE THEME */
+        :root {
+            --wine: #722f37;
+            --deep-maroon: #3b1217;
+            --gold: #d4af37;
+            --cream: #fffdd0;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', serif; }
+
+        body {
+            background-color: var(--deep-maroon);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .phone-container {
+            width: 100%; max-width: 400px; height: 90vh;
+            background: linear-gradient(135deg, var(--wine), var(--deep-maroon));
+            border: 4px solid var(--gold); border-radius: 30px;
+            position: relative; overflow-y: auto; overflow-x: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5); color: var(--cream);
+        }
+
+        .screen { 
+            display: none; min-height: 100%; padding: 30px 20px;
+            flex-direction: column; align-items: center; text-align: center;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        .screen.active { display: flex; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { color: var(--gold); font-size: 2.2rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        p { line-height: 1.6; margin-bottom: 20px; font-size: 1.1rem; }
+        
+        .polaroid {
+            background: var(--white); padding: 15px 15px 30px 15px;
+            box-shadow: 5px 10px 20px rgba(0,0,0,0.4); transform: rotate(-2deg);
+            margin: 20px auto; color: #333; width: 90%;
+        }
+        .polaroid img { width: 100%; height: 250px; object-fit: cover; border: 1px solid #ddd; }
+        .polaroid p { margin-top: 15px; font-family: 'Courier New', monospace; font-weight: bold; }
+
+        .ring-box { margin: 30px auto; position: relative; width: 150px; height: 150px; }
+        .ring-img { width: 100%; animation: pulseRing 2s infinite ease-in-out; }
+        @keyframes pulseRing {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px var(--gold)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 30px var(--gold)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 10px var(--gold)); }
+        }
+
+        /* BUTTON LAYOUT */
+        .btn-container { 
+            display: flex; 
+            gap: 20px; 
+            margin-top: 30px; 
+            width: 100%; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100px;
+        }
+
+        .btn {
+            background: var(--gold); color: var(--deep-maroon); border: none;
+            padding: 15px 35px; border-radius: 50px; font-size: 1.1rem; font-weight: bold;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        /* Initial state of NO button - side by side */
+        .btn-no { 
+            background: #888; 
+            color: #ddd; 
+            position: relative; /* Starts next to the Yes button */
+            transition: all 0.2s ease;
+        }
+
+        .confetti { position: absolute; width: 10px; height: 10px; background: var(--gold); animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
+    </style>
+</head>
+<body>
+
+<div class="phone-container" id="main-container">
+
+    <div id="screen1" class="screen active">
+        <h1 style="margin-top: 50%;">Hey Beautiful...</h1>
+        <p>I have an important question to ask you today.</p>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Ready?</p>
+        <button class="btn" onclick="nextScreen(2)">Yes, tell me ✨</button>
+    </div>
+
+    <div id="screen2" class="screen">
+        <h1>Why I Love You</h1>
+        <p>From the moment I met you, my life changed for the better.</p>
+        <div class="polaroid">
+            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000&auto=format&fit=crop" alt="Us">
+            <p>Every moment with you is magic.</p>
+        </div>
+        <p>You are my best friend and my greatest adventure.</p>
+        <button class="btn" onclick="nextScreen(3)">Continue... ❤️</button>
+    </div>
+
+    <div id="screen3" class="screen">
+        <h1 style="margin-top: 30px;">My Forever...</h1>
+        <p>I can't imagine my life without you in it.</p>
+        <div class="ring-box">
+            <img src="https://cdn-icons-png.flaticon.com/512/3102/3102767.png" class="ring-img" alt="Ring">
+        </div>
+        <h2 style="color: var(--gold); font-size: 1.8rem; margin: 20px 0;">Will You Be My Girlfriend?</h2>
+
+        <div class="btn-container">
+            <button class="btn" onclick="celebrate()">YES! 💍</button>
+            <button class="btn btn-no" id="no-btn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+        </div>
+    </div>
+
+    <div id="screen4" class="screen">
+        <h1 style="font-size: 3rem; margin-top: 40%;">SHE SAID YES! 🎉</h1>
+        <p>You just made me the happiest person alive.</p>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueW9qZnd6NmR4ZzR6ZzR6ZzR6ZzR6ZzR6ZzR6ZzR6ZzR6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9iZCZjdD1z/MDJ9IbxxvDUQM/giphy.gif" width="150" style="border-radius: 50%; margin-top: 20px;">
+    </div>
+
+</div>
+
+<script>
+    function nextScreen(num) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('screen' + num).classList.add('active');
+    }
+
+    function moveNo() {
+        const btn = document.getElementById('no-btn');
+        const container = document.getElementById('main-container');
+        
+        // Once interacted with, it becomes absolute to fly around
+        btn.style.position = 'absolute';
+        
+        // Ensure it stays inside the 400px wide phone frame
+        // Subtract button width/height to keep it within view
+        const maxX = container.clientWidth - btn.offsetWidth - 40;
+        const maxY = container.clientHeight - btn.offsetHeight - 40;
+
+        // Generate coordinates within the frame bounds
+        const randomX = Math.floor(Math.random() * maxX) + 20;
+        const randomY = Math.floor(Math.random() * maxY) + 20;
+
+        btn.style.left = randomX + 'px';
+        btn.style.top = randomY + 'px';
+    }
+
+    function celebrate() {
+        nextScreen(4);
+        const container = document.getElementById('main-container');
+        for(let i=0; i<50; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = ['#d4af37', '#fff', '#722f37'][Math.floor(Math.random()*3)];
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            container.appendChild(confetti);
+        }
+    }
+</script>
+
+</body>
+</html>
